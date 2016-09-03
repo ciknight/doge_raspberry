@@ -2,7 +2,7 @@
 
 int main(void) {
     wiringPiSetup();
-    pinMode(0, OUTPUT);
+    pinMode(4, OUTPUT);
     for (;;)
     {
         digitalWrite (4, HIGH); delay (3000);

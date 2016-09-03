@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #define MAXTIMINGS 85
-#define DHTPIN 7
+#define DHTPIN 3
 int dht11_dat[5] = {0,0,0,0,0};
 
 void read_dht11_dat()
