@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <cstring>
 #include <sys/types.h>
 #include <unistd.h>
 
