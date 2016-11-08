@@ -40,19 +40,19 @@ static int read_dht22_dat(int iPin, int* piHumidity, int* piTemp)
     digitalWrite(iPin, HIGH);
     delayMicroseconds(40);
 
-	// prepare to read the pin
+    // prepare to read the pin
     pinMode(iPin, INPUT);
 
     // detect change and read data
     for ( i=0; i< MAXTIMINGS; i++)
-	{
+    {
         counter = 0;
         while (sizecvt(digitalRead(iPin)) == laststate)
-		{
+        {
             counter++;
             delayMicroseconds(1);
             if (counter == 255)
-			{
+            {
                 break;
             }
         }
@@ -62,7 +62,7 @@ static int read_dht22_dat(int iPin, int* piHumidity, int* piTemp)
 
         // ignore first 3 transitions
         if ((i >= 4) && (i%2 == 0))
-		{
+        {
             // shove each bit into the storage bytes
             dht22_dat[j/8] <<= 1;
             if (counter > 16)
@@ -74,13 +74,13 @@ static int read_dht22_dat(int iPin, int* piHumidity, int* piTemp)
     // check we read 40 bits (8bit x 5 ) + verify checksum in the last byte
     // print it out if data is good
     if ((j >= 40) && (dht22_dat[4] == ((dht22_dat[0] + dht22_dat[1] + dht22_dat[2] + dht22_dat[3]) & 0xFF)) )
-	{
-		*piHumidity = dht22_dat[0] * 256 + dht22_dat[1];
-		*piTemp = (dht22_dat[2] & 0x7F)* 256 + dht22_dat[3];
+    {
+        *piHumidity = dht22_dat[0] * 256 + dht22_dat[1];
+        *piTemp = (dht22_dat[2] & 0x7F)* 256 + dht22_dat[3];
         if ((dht22_dat[2] & 0x80) != 0)
-			*piTemp *= -1;
+            *piTemp *= -1;
 
-		return 1;
+        return 1;
     }
     else
     {
@@ -90,15 +90,15 @@ static int read_dht22_dat(int iPin, int* piHumidity, int* piTemp)
 
 int main( int argc, char * argv[])
 {
-    int iPin = 7;
+    int iPin = 7;  // WiringPi 7 is GPIO #4
     int iErr = 0;
 
-	iErr = wiringPiSetup ();
+    iErr = wiringPiSetup ();
     if (iErr == -1)
         exit(1);
 
-	int iHumidity = -1;
-	int iTemp = -1;
+    int iHumidity = -1;
+    int iTemp = -1;
 
     while(1)
     {
